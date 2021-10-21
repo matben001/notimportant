@@ -49,7 +49,7 @@ fin:
   ret
   
   
-  
+  ---------------------
   movl $adr ,%edx
 movl %esi ,%ecx
 L1:
@@ -86,3 +86,17 @@ fin:
   popl  %ebx
   popl  %ebp         
   ret
+  
+  --------------------
+  movl $adr_pisano_m, $edx
+movl %esi, %ecx
+movl $0, %eax
+equal:
+   addl $1, %eax
+   addl $4, %edx
+L1:
+   cpml $0 ($edx)
+   jz equal
+   loop L1
+
+--------------------------------
