@@ -15,3 +15,27 @@ L2:
   movl %edx, (%ebx)
   addl $4, %ebx
   loop L2
+  
+  
+  L2:
+  movl $0, %edx
+  movl (%ebx), %eax
+  divl %esi
+  movl %edx, (%ebx)
+  addl $4, %ebx
+  loop L2
+movl %edi ,%ecx
+movl $adr_fibo_mod_m, %ebx
+movl $0, %eax
+addl $12, %ebx
+L3:
+  addl $4, %ebx
+  cpml $0, (%ebx)
+  jz L3
+  cpml $1, (%ebx)
+  jz L3
+  cpml $1, (%ebx)
+  jz L3
+  cpml $2, (%ebx)
+  jz L3
+  addl $1, %eax
