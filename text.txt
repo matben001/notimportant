@@ -47,3 +47,42 @@ fin:
   popl  %ebx
   popl  %ebp         
   ret
+  
+  
+  
+  movl $adr ,%edx
+movl %esi ,%ecx
+L1:
+  movl (%edx), %eax
+  addl 4(%edx),%eax
+  movl %eax, 8(%edx)
+  addl $4, %edx
+  loop L1
+
+
+movl %esi ,%ecx
+movl $adr, %ebx
+L2:
+  movl $0, %edx
+  movl (%ebx), %eax
+  divl %edi
+  movl %edx, (%ebx)
+  addl $4, %ebx
+  loop L2
+
+movl %eax ,%ecx
+subl %esi, %ecx
+movl $adr, %ebx
+mull $4, %esi
+addl %esi, %ebx
+L3:
+   subl %esi, %ebx
+   movl (%ebx), %eax
+   addl %esi, %ebx
+   movl %eax, (%ebx)
+   loop L3
+
+fin: 
+  popl  %ebx
+  popl  %ebp         
+  ret
