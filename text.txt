@@ -1,4 +1,21 @@
-movl $adr_fibo_mod_m,%edx
+.data
+.globl adr_pisano
+adr_pisano:
+   .int 0,1
+
+   
+.text
+.globl fibo_pisano_m
+
+fibo_pisano_m:
+movl 4(%esp), %edi           # n : indice de fibo
+movl 8(%esp), %esi           # m : base modulo
+
+push %ebp
+movl %esp, %ebp
+push %ebx      
+             
+movl $adr_pisano,%edx
 movl %edi ,%ecx
 L1:
   movl (%edx), %eax
@@ -15,27 +32,18 @@ L2:
   movl %edx, (%ebx)
   addl $4, %ebx
   loop L2
-  
-  
-  L2:
-  movl $0, %edx
-  movl (%ebx), %eax
-  divl %esi
-  movl %edx, (%ebx)
-  addl $4, %ebx
-  loop L2
+
 movl %edi ,%ecx
 movl $adr_fibo_mod_m, %ebx
 movl $0, %eax
-addl $12, %ebx
+addl $16, %ebx
 L3:
-  addl $4, %ebx
-  cpml $0, (%ebx)
-  jz L3
-  cpml $1, (%ebx)
-  jz L3
-  cpml $1, (%ebx)
-  jz L3
-  cpml $2, (%ebx)
-  jz L3
+  compl $0x0112, (%dx)
+  jz fin
   addl $1, %eax
+  addl $4, %edx
+  jmp L3
+fin: 
+  popl  %ebx
+  popl  %ebp         
+  ret
